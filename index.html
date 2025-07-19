@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crypto – Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS, AOS, FontAwesome, Lucide Icons (SVG) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="https://unpkg.com/lucide-static@0.325.0/font/lucide.css" />
+  <style>
+    html, body {
+      background: linear-gradient(120deg, #e0f7fa 10%, #fcfbf7 100%);
+      color: #1a222e;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      position: relative;
+      overflow-x: hidden;
+    }
+    .animated-bg {
+      position:fixed;
+      top:0; left:0;
+      width:100vw; height:100vh;
+      pointer-events:none;
+      z-index:0;
+      opacity:.17;
+      user-select:none;
+    }
+    .main-content {
+      position:relative;
+      z-index:2;
+    }
+    /* HERO SECTION ------------------- */
+    header.hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: none;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .hero-graphic {
+      width: clamp(360px, 60vw, 650px);
+      margin: 0 auto 1.2rem auto;
+      display: block;
+      pointer-events:none;
+    }
+    .brand-logo {
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(85deg, #515be8 25%, #44dfbf 65%, #e1caff 100%);
+      background-size: 200% auto;
+      background-position: 0 0;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: heroTextGradient 3.4s linear infinite alternate;
+      text-shadow: 0 10px 32px #44dfbf24, 0 2px 12px #e1caff28;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 1px 12px #f4fbf866);
+    }
+    @keyframes heroTextGradient {
+      from { background-position: 0 0; }
+      to { background-position: 100% 70%; }
+    }
+    .hero .lead {
+      margin: 0 auto 32px auto;
+      font-size: 1.32rem;
+      color: #334155;
+      max-width: 600px;
+      font-weight: 400;
+      text-shadow: 0 1.5px 10px #53a8b67a;
+    }
+    .btn-main {
+      background: linear-gradient(90deg, #33fac3 30%, #515be8 80%);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.95rem 2.6rem;
+      border-radius: 32px;
+      border: none;
+      font-size:1.13rem;
+      box-shadow: 0 2px 16px #765af689;
+      letter-spacing: 1.7px;
+      transition: .19s;
+    }
+    .btn-main:focus, .btn-main:hover {
+      background: linear-gradient(90deg,#515be8 30%, #33fac3 80%);
+      color: #17172a;
+      transform: scale(1.05);
+      box-shadow: 0 5px 40px #4effe56e;
+    }
+
+    /* UNIVERSAL SECTION STYLES */
+    .section {
+      padding: 90px 0 80px 0;
+      position:relative;
+      background: none;
+      z-index: 2;
+    }
+    .section h2 {
+      font-size: 2.25rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #233466 25%, #676cff 52%, #2beec5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 3.1rem;
+      letter-spacing: .5px;
+      text-align: center;
+    }
+    /* --------- CARD DESIGNS --------- */
+    /* Features: 3D, colored glass "neumorphic" */
+    .features-card {
+      border-radius: 30px;
+      min-height: 340px;
+      padding: 38px 22px 30px 22px;
+      margin-bottom: 0;
+      box-shadow:
+        0 2px 30px 8px #71a7fa30,
+        0 0px 1px 0px #adecff4c,
+        0 1px 4px 1px #e1e8ff7c;
+      background: linear-gradient(120deg, #dbeafe 80%, #f0fff7 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: transform .19s, box-shadow .19s, border .19s;
+    }
+    .features-card .icon {
+      background: linear-gradient(125deg,#515be8 48%,#2beec5 130%);
+      color: #fff;
+      border-radius: 22px;
+      width: 64px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 23px;
+      font-size: 2.8rem;
+      box-shadow: 0 8px 44px #515be889,0 2px 8px #b2fafa21;
+      border: 2.2px solid #2beec5;
+      filter: blur(0.2px);
+    }
+    .features-card:hover {
+      transform: translateY(-11px) scale(1.04) rotateY(-4deg) scaleY(1.03);
+      box-shadow: 0 20px 80px #a2e9fd81;
+      border: 2px solid #27d4c7;
+    }
+    /* Tokenomics: glass pane with neon borders */
+    .tok-card {
+      min-height: 340px;
+      border-radius: 28px;
+      background: rgba(244, 250, 255, 0.95);
+      box-shadow:
+        0 2px 54px 0 #8fdfe79a,
+        0 1.5px 8px 0 #adc89c3d;
+      border: 2.1px solid #85f0e7;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 36px 16px 26px 16px;
+      position: relative;
+      overflow: hidden;
+      font-weight: 500;
+      transition: box-shadow .19s, border .19s, transform .18s;
+    }
+    .tok-card .icon {
+      margin-bottom: 18px;
+      font-size: 2.7rem;
+      color: #27d4c7;
+      background: linear-gradient(120deg,#f6d365 20%,#fda085 97%);
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      display: flex;align-items:center;justify-content:center;
+      box-shadow: 0 2px 27px #ffd6a18d;
+    }
+    .tok-card img {
+      width: 50px; margin-bottom: 9px;
+      border-radius: 12px; box-shadow:0 7px 20px #35f0c417;
+    }
+    .tok-card:hover {
+      border-color:#5167ff;
+      box-shadow:0 10px 54px #6ffae481;
+      transform:scale(1.05);
+    }
+    /* ROADMAP: layered timeline effect with left "dot" */
+    .roadmap-card {
+      min-height: 210px;
+      border-radius: 22px;
+      background:linear-gradient(112deg,#eefaff 65%,#f4fcfc 120%);
+      box-shadow:0 1px 16px #add2f845;
+      position:relative;
+      padding: 24px 20px 18px 32px;
+      border-left: 8px solid #33e9c6;
+      transition:box-shadow .19s, border .13s, transform .18s;
+      overflow-x: hidden;
+      color: #15597a;
+      font-weight: 600;
+      display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+    }
+    .roadmap-card .roadmap-dot {
+      position:absolute;
+      left: -16px;top:20px;
+      width: 20px; height: 20px;
+      background: linear-gradient(112deg,#42e1c4,#7f83f4);
+      border-radius:50%;
+      z-index:2;
+      box-shadow:0 1px 12px #a1f3f989;
+    }
+    .roadmap-card img {
+      width:40px;height:40px;margin:5px 0 12px 0;border-radius:14px;box-shadow:0 1px 7px #42e1c455;
+    }
+    .roadmap-card:hover {
+      border-left: 14px solid #515be8;
+      box-shadow:0 8px 42px #c7eaffba;
+      color:#515be8;
+      transform:translateY(-1px) scale(1.022);
+    }
+    /* USE CASES: glass + card shadow + floating border */
+    .usecase-glass {
+      min-height: 250px;
+      border-radius: 19px;
+      box-shadow:0 0px 42px #8deaf06e;
+      background: rgba(252,253,255,.78);
+      border: 2.5px solid #90e6ee;
+      transition:transform .18s,box-shadow .18s,border .18s;
+      padding:38px 12px 22px 12px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      font-weight:500;
+      overflow:visible;
+      position:relative;
+    }
+    .usecase-glass:after {
+      content:"";
+      display:block;
+      position:absolute;
+      top:-13px; left:-13px; right:-13px; bottom:-13px;
+      border-radius:32px;
+      border:2.5px dashed #33f9f2;
+      opacity:.18;
+      pointer-events:none;
+    }
+    .usecase-glass .icon {
+      margin-bottom:10px;
+      font-size:2.1rem;
+      color:#515be8;
+      filter:drop-shadow(0 0 9px #b1d3ffb9);
+    }
+    .usecase-glass img {
+      width:44px;margin-bottom:11px;
+      border-radius:8px;box-shadow:0 1px 17px #515be896;
+    }
+    .usecase-glass:hover {
+      border-color:#515be8;
+      box-shadow:0 2px 38px #bfe8ff99;
+      transform:scale(1.04) rotateY(-4deg);
+    }
+    /* Community buttons */
+    .community-links .btn {
+      margin: 9px 13px 0 0;
+      border-radius: 30px;
+      background: linear-gradient(93deg,#f0fafc 40%,#f6f9fe 100%);
+      color: #2b3c63;
+      border: 2px solid #baeaff;
+      font-weight: 700;
+      font-size: 1.07rem;
+      padding: 0.72rem 2.1rem;
+      box-shadow:0 2px 18px #8cf3ff14;
+      transition: background .16s, box-shadow .23s, color .2s;
+    }
+    .community-links .btn:hover {
+      background: linear-gradient(92deg,#ecfcf9 100%,#e9e1ff 100%);
+      color: #3f15b3;
+    }
+    /* CTA Card */
+    .cta-card {
+      background:linear-gradient(107deg,#d7feeb 68%,#e7e7ff 100%);
+      border-radius: 29px;
+      min-height: 174px;
+      box-shadow: 0 10px 32px #59ddf347;
+      padding: 42px 15px;
+      color: #117d85;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      transition:box-shadow .19s,transform .2s;
+      font-size:1.32rem;
+      font-weight:700;
+      border:2.7px solid #33fac387;
+    }
+    .cta-card:hover {
+      box-shadow:0 2px 44px #2ee9ff49;
+      transform:scale(1.03);
+      color: #26b2b2;
+    }
+    /* Footer */
+    footer {
+      background: #f0fafc;
+      color: #3317a2;
+      text-align:center;
+      padding: 30px 0 11px 0;
+      border-radius: 0 0 36px 36px;
+      margin-top: 60px;
+      font-size: 1.16rem;
+      letter-spacing:.8px;
+      font-weight: bold;
+      box-shadow:0 -2px 14px #b2f5ea17;
+    }
+    /* Responsive */
+    @media (max-width: 992px) {
+      .section { padding: 50px 0 40px 0; }
+      .features-card, .tok-card {min-height:250px!important; padding:24px 7px 14px 7px;}
+      .usecase-glass, .roadmap-card{min-height:140px!important;padding:20px 5px 10px 14px;}
+      .cta-card{min-height:80px;}
+    }
+    @media (max-width: 576px) {
+      .brand-logo {font-size: 2rem;}
+      .section h2 {font-size: 1.1rem;}
+      .row.g-4 > [class*='col-'] {margin-bottom: 24px;}
+      .hero .lead {font-size: 1rem;}
+      .community-links .btn {margin-right:0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg" aria-hidden="true">
+    <!-- Unique, SVG-based wavy crypto shapes - looks great, infinite scaling, always loads -->
+    <svg width="100%" height="100%" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="cryptoWave1" x1="23" y1="40" x2="1700" y2="900" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#5eead4" />
+          <stop offset="0.5" stop-color="#e0f2fe"/>
+          <stop offset="1" stop-color="#5146ee"/>
+        </linearGradient>
+        <linearGradient id="cryptoWave2" x1="80" y1="900" x2="1850" y2="550" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#f7befc" />
+          <stop offset="1" stop-color="#fff" />
+        </linearGradient>
+      </defs>
+      <path d="M0 250 Q800 420 1920 240 L1920 0 L0 0 Z" fill="url(#cryptoWave1)" fill-opacity="0.8"/>
+      <path d="M0 820 Q1200 1040 1920 820 L1920 1080 L0 1080 Z" fill="url(#cryptoWave2)" fill-opacity="0.65"/>
+      <!-- Crypto coin icons, as fading SVGs -->
+      <g opacity="0.26">
+        <circle cx="1400" cy="180" r="50" fill="#fff"/>
+        <text x="1380" y="200" font-size="56" font-weight="bold" fill="#eab308">₿</text>
+        <circle cx="170" cy="966" r="46" fill="#fff" />
+        <text x="150" y="982" font-size="54" font-weight="bold" fill="#10b981">Ξ</text>
+        <rect x="450" y="925" width="70" height="50" rx="16" fill="#fffefc"/>
+        <text x="470" y="958" font-size="42" font-weight="600" fill="#6366f1">₮</text>
+      </g>
+    </svg>
+  </div>
+  <div class="main-content">
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+      <svg class="hero-graphic" data-aos="fade-in" width="500" height="150" viewBox="0 0 500 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#a)">
+          <ellipse cx="250" cy="80" rx="210" ry="32" fill="url(#heroCircle)"/>
+        </g>
+        <g>
+          <circle cx="50" cy="90" r="26" fill="#3DE7BC" fill-opacity=".22"/>
+          <circle cx="440" cy="50" r="18" fill="#7365FC" fill-opacity=".27"/>
+          <circle cx="220" cy="120" r="15" fill="#B189F8" fill-opacity=".26"/>
+          <circle cx="280" cy="20" r="17" fill="#51E4B9" fill-opacity=".18"/>
+        </g>
+        <defs>
+           <filter id="a"><feGaussianBlur stdDeviation="8"/></filter>
+           <linearGradient id="heroCircle" x1="0" y1="0" x2="460" y2="140" gradientUnits="userSpaceOnUse">
+             <stop stop-color="#dffcf4"/><stop offset="1" stop-color="#a4e4ff"/>
+           </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-logo" data-aos="fade-down" data-aos-easing="ease-in-back" data-aos-duration="850">CRYPTO</span>
+      <p class="lead" data-aos="fade-up" data-aos-delay="100" data-aos-easing="ease-out-back">
+        Revolutionizing Web3 with ultra-fast, eco-friendly, and secure blockchain infrastructure.
+      </p>
+      <a href="#tokenomics" class="btn btn-main" data-aos="zoom-in" data-aos-delay="160" data-aos-easing="ease-in-back">Explore Ecosystem</a>
+    </header>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <div class="container">
+        <h2 data-aos="fade-up" data-aos-anchor-placement="top-center" data-aos-once="false">Key Features</h2>
+        <div class="row g-4 justify-content-center">
+          <div class="col-xl-4 col-md-6" data-aos="fade-right" data-aos-offset="120" data-aos-delay="0" data-aos-mirror="true">
+            <div class="features-card" data-tilt data-tilt-max="15">
+              <div class="icon"><i class="fas fa-rocket"></i></div>
+              <h5>Blazing Speed</h5>
+              <p>Over <b>100k TPS</b> and sub-second latency for true instant confirmations everywhere.</p>
+            </div>
+          </div>
+          <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-offset="120" data-aos-delay="50" data-aos-mirror="true">
+            <div class="features-card" data-tilt data-tilt-max="15">
+              <div class="icon"><i class="fas fa-shield-alt"></i></div>
+              <h5>Enterprise Security</h5>
+              <p>Pro-audited smart contracts and cutting-edge threat detection protect every transaction.</p>
+            </div>
+          </div>
+          <div class="col-xl-4 col-md-6" data-aos="fade-left" data-aos-offset="120" data-aos-delay="180" data-aos-mirror="true">
+            <div class="features-card" data-tilt data-tilt-max="15">
+              <div class="icon"><i class="fas fa-leaf"></i></div>
+              <h5>Sustainable</h5>
+              <p>Eco-friendly consensus (PoS+) minimizing carbon for modern Web3 sustainability.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKENOMICS -->
+    <section class="section" id="tokenomics">
+      <div class="container">
+        <h2 data-aos="fade-up" data-aos-anchor-placement="center-bottom" data-aos-once="false">Tokenomics</h2>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6" data-aos="flip-left" data-aos-mirror="true">
+            <div class="tok-card" data-tilt data-tilt-max="9">
+              <span class="icon">
+                <i class="lucide lucide-coins"></i>
+              </span>
+              <h5>Total Supply</h5>
+              <img src="data:image/svg+xml,%3Csvg viewBox='0 0 51 51' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='25.5' cy='25.5' rx='25.5' ry='25.5' fill='%23EEF4FC'/%3E%3Cpath d='M39.5 21.5c0 3.866-4.925 7-11 7s-11-3.134-11-7m22 0c0-3.866-4.925-7-11-7s-11 3.134-11 7m22 0v8c0 3.866-4.925 7-11 7s-11-3.134-11-7v-8' stroke='%2369f0ae' stroke-width='2'/%3E%3C/svg%3E" alt="Supply SVG">
+              <p>1 Billion $CRYP tokens minted at genesis with provable transparency.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="flip-up" data-aos-delay="100" data-aos-mirror="true">
+            <div class="tok-card" data-tilt data-tilt-max="9">
+              <span class="icon">
+                <i class="lucide lucide-users"></i>
+              </span>
+              <h5>Community Driven</h5>
+              <img src="data:image/svg+xml,%3Csvg viewBox='0 0 51 51' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='25.5' cy='25.5' rx='25.5' ry='25.5' fill='%23EEFFF9'/%3E%3Ccircle cx='16' cy='20' r='4' stroke='%2369f0ae' stroke-width='2'/%3E%3Ccircle cx='35' cy='20' r='4' stroke='%2369f0ae' stroke-width='2'/%3E%3Cpath d='M12 35c0-3.314 4.03-6 9-6s9 2.686 9 6' stroke='%2369f0ae' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" alt="Community SVG">
+              <p>50% to the community, staking, and on-chain DAO governance voting.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="flip-right" data-aos-delay="200" data-aos-mirror="true">
+            <div class="tok-card" data-tilt data-tilt-max="9">
+              <span class="icon">
+                <i class="lucide lucide-activity"></i>
+              </span>
+              <h5>Core Development</h5>
+              <img src="data:image/svg+xml,%3Csvg viewBox='0 0 51 51' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='25.5' cy='25.5' rx='25.5' ry='25.5' fill='%23E9F8FC'/%3E%3Crect x='18' y='17' width='14' height='17' rx='5' stroke='%2369f0ae' stroke-width='2'/%3E%3Cpath d='M22 21v6' stroke='%2369f0ae' stroke-width='2'/%3E%3C/svg%3E" alt="Devs SVG">
+              <p>25% fueled to protocol growth, audits, ecosystem and innovation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section class="section" id="roadmap">
+      <div class="container">
+        <h2 data-aos="fade-up">Roadmap</h2>
+        <div class="row g-4 align-items-stretch">
+          <div class="col-md-3 col-6" data-aos="fade-up-right" data-aos-duration="700">
+            <div class="roadmap-card" data-tilt data-tilt-max="8">
+              <span class="roadmap-dot"></span>
+              <img src="data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='20' cy='20' rx='20' ry='20' fill='%2333e9c6' fill-opacity='0.11'/%3E%3Cpath d='M12 28V18c0-5.523 7.477-10 12-10s12 4.477 12 10v10' stroke='%2369f0ae' stroke-width='2'/%3E%3C/svg%3E" alt="Whitepaper">
+              <div class="mt-2"><b>Q1</b></div>
+              <div>Whitepaper, Testnet, Dev Grant Program</div>
+            </div>
+          </div>
+          <div class="col-md-3 col-6" data-aos="fade-up" data-aos-duration="700">
+            <div class="roadmap-card" data-tilt data-tilt-max="8">
+              <span class="roadmap-dot"></span>
+              <img src="data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='20' cy='20' rx='20' ry='20' fill='%2333e9c6' fill-opacity='0.11'/%3E%3Crect x='11' y='12' width='18' height='16' rx='5.5' stroke='%2369f0ae' stroke-width='2'/%3E%3C/svg%3E" alt="Token Launch">
+              <div class="mt-2"><b>Q2</b></div>
+              <div>Token Launch, Staking, Exchange Listings</div>
+            </div>
+          </div>
+          <div class="col-md-3 col-6" data-aos="fade-up" data-aos-duration="700">
+            <div class="roadmap-card" data-tilt data-tilt-max="8">
+              <span class="roadmap-dot"></span>
+              <img src="data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='20' cy='20' rx='20' ry='20' fill='%2333e9c6' fill-opacity='0.11'/%3E%3Crect x='14' y='13' width='12' height='14' rx='4.5' stroke='%2369f0ae' stroke-width='2'/%3E%3C/svg%3E" alt="NFT">
+              <div class="mt-2"><b>Q3</b></div>
+              <div>NFT Platform, Governance Launch</div>
+            </div>
+          </div>
+          <div class="col-md-3 col-6" data-aos="fade-up-left" data-aos-duration="700">
+            <div class="roadmap-card" data-tilt data-tilt-max="8">
+              <span class="roadmap-dot"></span>
+              <img src="data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='20' cy='20' rx='20' ry='20' fill='%2333e9c6' fill-opacity='0.11'/%3E%3Cpath d='M19 23v4h2v-4h-2zm.708-6.708l-4.5 4.5 1.414 1.416 2.792-2.792 6.792 6.792 1.414-1.414-8.206-8.206zm6.792-3.292a2 2 0 10.002-4.002 2 2 0 00-.002 4.002zm-7.5 16C10.615 29 6 24.385 6 18.5 6 12.615 10.615 8 16.5 8c5.885 0 10.5 4.615 10.5 10.5C27 24.385 22.385 29 16.5 29z' stroke='%2369f0ae' stroke-width='2'/%3E%3C/svg%3E" alt="BridgeMobile">
+              <div class="mt-2"><b>Q4</b></div>
+              <div>Cross-chain Bridge, Mobile App</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section class="section" id="use-cases">
+      <div class="container">
+        <h2 data-aos="fade-up">Use Cases</h2>
+        <div class="row g-4">
+          <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-mirror="true">
+            <div class="usecase-glass" data-tilt data-tilt-max="10">
+              <img src="data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='22' cy='22' rx='22' ry='22' fill='%23EEF4FC'/%3E%3Crect x='13' y='18' width='18' height='8' rx='4' stroke='%23515be8' stroke-width='2'/%3E%3C/svg%3E" alt="Payments" class="icon">
+              <h5>Payments</h5>
+              <p>Fast, affordable crypto payments for global web and retail merchants.</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-mirror="true" data-aos-delay="60">
+            <div class="usecase-glass" data-tilt data-tilt-max="10">
+              <img src="data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='22' cy='22' rx='22' ry='22' fill='%230ad4c4' fill-opacity='.09'/%3E%3Crect x='15' y='14' width='14' height='16' rx='7' stroke='%23515be8' stroke-width='2'/%3E%3C/svg%3E" alt="DeFi" class="icon">
+              <h5>DeFi Lending</h5>
+              <p>Collateralized lending and borrowing worldwide with no intermediaries.</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-mirror="true" data-aos-delay="120">
+            <div class="usecase-glass" data-tilt data-tilt-max="10">
+              <img src="data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='22' cy='22' rx='22' ry='22' fill='%23e1caff' fill-opacity='.18'/%3E%3Crect x='16' y='16' width='12' height='12' rx='6' stroke='%23515be8' stroke-width='2'/%3E%3C/svg%3E" alt="NFTs" class="icon">
+              <h5>NFT Marketplace</h5>
+              <p>Mint and trade unique digital assets; secure, instant, permanent.</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-mirror="true" data-aos-delay="180">
+            <div class="usecase-glass" data-tilt data-tilt-max="10">
+              <img src="data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='22' cy='22' rx='22' ry='22' fill='%23eefff9' fill-opacity='.21'/%3E%3Ccircle cx='22' cy='22' r='10' stroke='%23515be8' stroke-width='2'/%3E%3C/svg%3E" alt="DAO" class="icon">
+              <h5>DAO Governance</h5>
+              <p>Community voting for upgrades, grants & on-chain proposals – true decentralization.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMUNITY / JOIN -->
+    <section class="section" id="community">
+      <div class="container text-center">
+        <h2 data-aos="fade-up">Join Our Community</h2>
+        <p class="lead mb-4" data-aos="zoom-in">Stay connected with Crypto news, updates, and our global decentralization movement.</p>
+        <div class="community-links d-flex justify-content-center flex-wrap gap-3">
+          <a href="#" class="btn" data-aos="fade-right" data-aos-offset="20"><i class="fab fa-telegram"></i> Telegram</a>
+          <a href="#" class="btn" data-aos="flip-up"><i class="fab fa-twitter"></i> Twitter</a>
+          <a href="#" class="btn" data-aos="fade-left" data-aos-offset="20"><i class="fab fa-discord"></i> Discord</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" id="get-started">
+      <div class="container text-center">
+        <div class="cta-card mx-auto" style="max-width:450px;" data-aos="zoom-in" data-aos-mirror="true">
+          Launch your crypto journey with Crypto today.
+          <br><br>
+          <a href="#" class="btn btn-main rounded-pill px-5 mt-1" data-aos="fade-in" data-aos-delay="120">Connect Wallet</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 Crypto. Built for tomorrow.</p>
+    </footer>
+  </div>
+  <!-- JS Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
+  <script>
+    // Animate on scroll, with out animation
+    AOS.init({
+      // once: false,
+      mirror: true,
+      duration: 950,
+      easing: 'ease-in-out-sine',
+      anchorPlacement: 'center-bottom'
+    });
+    // 3D tilt for all main cards
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+      reverse: false,
+      max: 14,
+      speed: 700,
+      glare: true,
+      "max-glare": .12,
+      scale: 1.03,
+      perspective: 900
+    });
+  </script>
+</body>
+</html>
